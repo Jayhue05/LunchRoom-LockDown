@@ -1,0 +1,67 @@
+clc
+clear
+% Sizing
+sideLength = 100;
+
+% Create Board
+bl = ones(sideLength);
+tl = ones(sideLength);
+scene = simpleGameEngine("retro_cards.png", 16,16);
+
+% Prisoner Info
+enemy = [prisoner];
+prisonerToSpawn = 1;
+
+%Create Prisoners
+for i = 1:prisonerToSpawn - 1
+    enemy = [enemy, prisoner];
+end
+
+%Spawn prisoner
+for i = 1:prisonerToSpawn 
+    [x, y] = enemy(1,i).spawnPrisoner;
+    disp(x);
+    disp(y);
+    tl(x,y) = 2;
+end
+
+
+tl(50,50) = 2;
+
+%Draw Scene
+drawScene(scene, bl, tl);
+
+%fprintf("The slope: %.1f \n", enemy(1).findPlayer(50,50))
+
+while true
+    % Iterate each enemy and change position
+    %for i = 1:size(enemy,2)
+
+    % Reset current spot
+    di
+    tl(enemy(1,1).x, enemy(1,1).y) = 1;
+    % Change to new spot
+    
+    % Sets players X to new position
+    fprintf("%.f + %.f =\n ", enemy(1,1).x, enemy(1,1).findPlayer(50,50));
+    
+    enemy(1,1).x = enemy(1,1).x + enemy(1,1).findPlayer(50,50);
+
+    fprintf("%.f \n", enemy(1,1).x)
+
+
+    % Set plays Y to new position
+    %enemy(1,1).y = enemy(1,1).y - 1;
+    
+
+
+    tl(enemy(1,1).y,enemy(1,1).x) = 2;
+    %]fprintf("%.f , %.f \n", enemy(1,1).x, enemy(1,1).y);
+    %end
+
+    drawScene(scene, bl, tl);
+    pause(.01);
+end
+
+
+
