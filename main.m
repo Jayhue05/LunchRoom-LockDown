@@ -23,21 +23,22 @@ end
 %Spawn prisoner
 for i = 1:prisonerToSpawn 
     [x, y] = enemy(1,i).spawnPrisoner;
-    tl(x,y) = 2;
 end
 
 while true
 
     % Reset current spot
-    tl(enemy(1,1).x, enemy(1,1).y) = 1;
-    % Change to new spot
+    fprintf("Position erased: %.f %.f\n", enemy(1,1).x , enemy(1,1).y)
+    tl(enemy(1,1).y, enemy(1,1).x) = 1;
     
-    % Sets prto new position
+    % Sets prisoners new position
     enemy(1,1).findPlayer(50,50);
+
     tl(enemy(1,1).y,enemy(1,1).x) = 2;
+    fprintf("New Position: %.f %.f\n", enemy(1,1).x , enemy(1,1).y)
 
     drawScene(scene, bl, tl);
-    pause(.1);
+    pause(.01);
 end
 
 

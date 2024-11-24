@@ -23,9 +23,13 @@ classdef prisoner < handle
             else
                 obj.x = obj.x;
             end
-            
+            if obj.x == playerX
+                fprintf("Error \n")
+
+            else
             slope = slopeState * round((obj.y - playerY) / (obj.x - playerX));
             obj.y = slope + obj.y;
+            end
             
         end
         function [x, y] = spawnPrisoner(obj)
