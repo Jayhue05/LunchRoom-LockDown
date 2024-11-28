@@ -4,46 +4,62 @@ close all
 % Sizing
 sideLength = 100;
 
+
 % Create Board
 bl = ones(sideLength);
 tl = ones(sideLength);
 scene = simpleGameEngine("retro_cards.png", 16,16);
-tl = spawnTable(tl, 25, 50);
-tl = spawnTable(tl, 25, 20);
+drawScene(scene, bl, tl);
 
-%Placeholder Player
-tl(50,50) = 5;
+tl = spawnTable(tl, 50, 50);
+
+% Start polling mouse position
+FigureH = gcf;
+set(FigureH, 'WindowButtonMotionFcn', @MotionFcn);
+
+% Removes margins for consistent moues positions
+FigureH.Position = [500,50,1000,1000];
+axis off; % Hides axes and removes margins
+set(gca, 'Position', [0 0 1 1]);
+
+% Create main player
+mainPlayer = player;
+tl(mainPlayer.x, mainPlayer.y) = 5;
 
 % Prisoner Info
+prisonerToSpawn = 10;
 enemy = [];
-prisonerToSpawn = 100;
 
-%Create Prisoners
+% Create Prisoners
 for i = 1:prisonerToSpawn
     enemy = [enemy, prisoner];
 end
 
 %Spawn prisoner
 for i = 1:prisonerToSpawn 
-    [x, y] = enemy(1,i).spawnPrisoner;
+    enemy(1,i).spawnPrisoner;
 end
 
 while true
-        
-    for i = 1:size(enemy,2)
-    %while enemy(1,1).x ~= 50 && enemy(1,1).y ~= 50
-        % Deletes the previous postion of the prisoner
-        tl(enemy(1,i).y, enemy(1,i).x) = 1;
+
+    % Updates all prisoners positions
+    tl = updateEnemy(tl, enemy, mainPlayer.x, mainPlayer.y);
+
+    % Grabs Mouse position
+    playerTarget = MotionFcn(FigureH);
     
-        % Sets prisoners new position
-        enemy(1,i).findPlayer(50,50, tl);
-        tl(enemy(1,i).y,enemy(1,i).x) = 2;
-    end
-    %end
+    tl(mainPlayer.y, mainPlayer.x) = 1;
+    playerTargetX = round(playerTarget(1)/10);
+    playerTargetY = round(abs((playerTarget(2) - 1000))/10);
+    
+    mainPlayer.CursorMovement(playerTargetX, playerTargetY, tl);
+
+    tl(mainPlayer.y, mainPlayer.x) = 5;
+   
+
     drawScene(scene, bl, tl);
-    pause(.1);
+    pause(.001);
+
 end
 
 
-
-% Dont nerf to 1 but make it go down that many times before it goes over 
