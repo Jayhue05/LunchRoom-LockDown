@@ -61,5 +61,3 @@ while true
     pause(.001);
 
 end
-
-
