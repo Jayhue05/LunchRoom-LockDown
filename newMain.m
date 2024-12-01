@@ -38,6 +38,7 @@ end
 
 while true
 
+
     % Updates all prisoners positions
     tl = updateEnemy(tl, enemy, mainPlayer.x, mainPlayer.y);
 

@@ -6,7 +6,7 @@ classdef newPlayer < handle
         name = "James"
         x = 50
         y = 50
-        speedMultiplier = 1
+        speedMultiplier = 2
         matrix = zeros(16,16)
 
     end
@@ -21,29 +21,23 @@ classdef newPlayer < handle
             end
         end
 
-        function row = CursorMovement(obj, targetX, targetY, board)
+        function CursorMovement(obj, targetX, targetY)
 
             % Calculates direction to move
-            direction = [(targetX - obj.x), (targetY - obj.y)];
+            direction = [(targetX - 500), (targetY - 500)];
             magnitude = sqrt( (direction(1))^2 + direction(2)^2 );
             normalized_vector = round([(direction(1) / magnitude), (direction(2) / magnitude)]);
-            row = normalized_vector(1);
-            disp(row)
-            
-            %Assigns position to temp variable
-            newPosX = obj.x + normalized_vector(1) * obj.speedMultiplier;
-            newPosY = obj.y + normalized_vector(2) * obj.speedMultiplier;
+            %disp([normalized_vector(1), normalized_vector(2)]);
+            %disp([obj.x, obj.y])
 
             % Prevents #/0 from occuring
             if floor(normalized_vector(1)) ~= normalized_vector(1)
                 return
             end
 
-            % checks if position is already taken
-            if board(newPosY, newPosX) == 1 || board(newPosY, newPosX) == 2
-                obj.x = newPosX;
-                obj.y = newPosY;
-            end
+                  %Assigns position to temp variable
+            obj.x = obj.x + normalized_vector(1) * obj.speedMultiplier;
+            obj.y = obj.y + normalized_vector(2) * obj.speedMultiplier;
         end
     end
 end

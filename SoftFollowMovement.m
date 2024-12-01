@@ -15,7 +15,7 @@ for r = 1:size(fullbg, 1)
 end
 
 % Defines the size of the zoomed in area
-gamebgSize = [90,160];
+gamebgSize = [100,100];
 currentRow = size(fullbg,1) ./ 2 - gamebgSize(1) ./ 2;
 currentCol = size(fullbg,2) ./ 2 - gamebgSize(2) ./ 2;
 
@@ -35,11 +35,18 @@ player4display = 10693 * ones(gamebgSize(1), gamebgSize(2)); %2x2 blank is 10693
 % Position of top-left of player on board
 row_start = gamebgSize(1) / 2;
 col_start = gamebgSize(2) / 2;
+mainPlayer.x = col_start;
+mainPlayer.y = row_start;
+disp(mainPlayer.x);
 
 % Grabs scene and starts polling mouse cord
 drawScene(obj,gamebg,player4display)
 FigureH = gcf;
 set(FigureH, 'WindowButtonMotionFcn', @MotionFcn);
+
+FigureH.Position = [500,50,1000,1000];
+axis off; % Hides axes and removes margins
+set(gca, 'Position', [0 0 1 1]);
 
 % Main loop
 while ~obj.currentKeys.escape
@@ -48,11 +55,16 @@ while ~obj.currentKeys.escape
     playerTarget = MotionFcn(FigureH);
     cursorTargetX = round(playerTarget(1));
     cursorTargetY = round(abs((playerTarget(2) - 810))); % Flips axis to start at top left
-    disp([cursorTargetX, cursorTargetY]);
     
+
+    mainPlayer.CursorMovement(cursorTargetX,cursorTargetY);
    
+    currentRow = mainPlayer.y;
+    currentCol = mainPlayer.x; 
     % Update Game Board display matrix
     gamebg = fullbg(currentRow:currentRow+gamebgSize(1)-1, currentCol:currentCol+gamebgSize(2)-1);
+
+    
 
     % Update player display matrix
     player4display(row_start:row_start + playerRows - 1, col_start:col_start + playerColumns - 1) = mainPlayer.matrix;
