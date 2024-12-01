@@ -1,4 +1,4 @@
-clc
+clc 
 clear
 close all
 % Sizing
@@ -8,7 +8,9 @@ sideLength = 100;
 % Create Board
 bl = ones(sideLength);
 tl = ones(sideLength);
-scene = simpleGameEngine("retro_cards.png", 16,16);
+scene = simpleGameEngine("background (1).png", 2,2);
+%scene = Engine("retro_cards.png", 16,16);
+
 drawScene(scene, bl, tl);
 
 tl = spawnTable(tl, 50, 50);

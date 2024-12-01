@@ -48,8 +48,13 @@ while ~obj.currentKeys.escape
     playerTarget = MotionFcn(FigureH);
     cursorTargetX = round(playerTarget(1));
     cursorTargetY = round(abs((playerTarget(2) - 810))); % Flips axis to start at top left
-    disp([cursorTargetX, cursorTargetY]);
-    
+    %disp([playerTargetX, playerTargetY]);
+
+
+    currentRow = max(currentRow - 1, mainPlayer.CursorMovement(cursorTargetX, cursorTargetY, gamebg));
+
+    mainPlayer.CursorMovement(cur
+    %disp([mainPlayer.x])
    
     % Update Game Board display matrix
     gamebg = fullbg(currentRow:currentRow+gamebgSize(1)-1, currentCol:currentCol+gamebgSize(2)-1);
