@@ -48,6 +48,17 @@ FigureH.Position = [500,50,1000,1000];
 axis off; % Hides axes and removes margins
 set(gca, 'Position', [0 0 1 1]);
 
+% Prisoner Info
+prisonerToSpawn = 1;
+enemy = [];
+
+% Create Prisoners
+for i = 1:prisonerToSpawn
+    enemy = [enemy, newPrisoner];
+end
+
+enemy(1).createPrisoner(fullbg,totalColumns);
+
 % Main loop
 while ~obj.currentKeys.escape
     
@@ -60,18 +71,24 @@ while ~obj.currentKeys.escape
     mainPlayer.CursorMovement(cursorTargetX,cursorTargetY);
    
     currentRow = mainPlayer.y;
-    currentCol = mainPlayer.x; 
+    currentCol = mainPlayer.x;
     % Update Game Board display matrix
     gamebg = fullbg(currentRow:currentRow+gamebgSize(1)-1, currentCol:currentCol+gamebgSize(2)-1);
 
-    
-
     % Update player display matrix
     player4display(row_start:row_start + playerRows - 1, col_start:col_start + playerColumns - 1) = mainPlayer.matrix;
- 
-    % Draw the scene
-    drawScene(obj,gamebg,player4display)
-    pause(0.01); % Small pause to prevent high CPU usage
+    
+    %disp([currentRow, currentCol])
+    % Spawn Enemy
+    %disp([enemy(1,1).x, enemy(1,1).y]);
+    fprintf("Enemy position: %i,%i\n",enemy(1,1).x, enemy(1,1).y )
+    fprintf("Player position: %i,%i\n",mainPlayer.x,mainPlayer.y)
+    %disp([mainPlayer(1).x,mainPlayer(1).y])
+    enemy(1,1).findPlayer(mainPlayer(1).y + 50, mainPlayer(1).x + 50);
+    fullbg(enemy(1,1).x:enemy(1,1).x + playerRows - 1, enemy(1,1).y:enemy(1).y  + playerColumns -1 ) = enemy(1).matrix;
 
+    % Draw the scene
+    drawScene(obj,gamebg,player4display);
+    pause(0.01); % Small pause to prevent high CPU usage
 end    
 close all

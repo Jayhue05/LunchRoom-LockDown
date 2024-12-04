@@ -6,7 +6,7 @@ classdef newPlayer < handle
         name = "James"
         x = 50
         y = 50
-        speedMultiplier = 2
+        speedMultiplier = 1
         matrix = zeros(16,16)
 
     end

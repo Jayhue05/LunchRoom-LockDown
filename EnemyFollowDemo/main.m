@@ -1,13 +1,19 @@
 clc 
 clear
 close all
+% Sizing
+sideLength = 100;
+
 
 % Create Board
-bl = ones(316,388);
-tl = ones(316,388);
-scene = simpleGameEngine("background (1).png", 2,2);
+bl = ones(sideLength);
+tl = ones(sideLength);
+scene = Engine("retro_cards.png", 16,16);
+%scene = Engine("retro_cards.png", 16,16);
 
 drawScene(scene, bl, tl);
+
+tl = spawnTable(tl, 50, 50);
 
 % Start polling mouse position
 FigureH = gcf;
@@ -19,7 +25,7 @@ axis off; % Hides axes and removes margins
 set(gca, 'Position', [0 0 1 1]);
 
 % Create main player
-mainPlayer = newPlayer;
+mainPlayer = player;
 tl(mainPlayer.x, mainPlayer.y) = 5;
 
 % Prisoner Info
@@ -37,7 +43,6 @@ for i = 1:prisonerToSpawn
 end
 
 while true
-
 
     % Updates all prisoners positions
     tl = updateEnemy(tl, enemy, mainPlayer.x, mainPlayer.y);
