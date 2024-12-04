@@ -60,7 +60,7 @@ end
 enemy(1).createPrisoner(fullbg,totalColumns);
 
 % Used to index movement animations
-previousMotion = 0;
+prevousMotion = 0;
 
 % Main loop
 while ~obj.currentKeys.escape
@@ -97,46 +97,34 @@ while ~obj.currentKeys.escape
     elseif  mainPlayer.normalized_vector == [0,1] % down
         if previousMotion == 1
             player4display(row_start:row_start + playerRows - 1, col_start:col_start + playerColumns - 1) = mainPlayer.animation{2};
-            previousMotion = 2;
         elseif previousMotion == 2
             player4display(row_start:row_start + playerRows - 1, col_start:col_start + playerColumns - 1) = mainPlayer.animation{3};
-            previousMotion = 3;
         elseif previousMotion == 3
             player4display(row_start:row_start + playerRows - 1, col_start:col_start + playerColumns - 1) = mainPlayer.animation{4};
-            previousMotion = 4;
         else
             player4display(row_start:row_start + playerRows - 1, col_start:col_start + playerColumns - 1) = mainPlayer.animation{1};
-            previousMotion = 1;
         end
 
-    elseif  mainPlayer.normalized_vector(1) == -1 % left
+    elseif  mainPlayer.normalized_vector == [-1,0] % left
         if previousMotion == 5
             player4display(row_start:row_start + playerRows - 1, col_start:col_start + playerColumns - 1) = mainPlayer.animation{6};
-            previousMotion = 6;
         elseif previousMotion == 6
             player4display(row_start:row_start + playerRows - 1, col_start:col_start + playerColumns - 1) = mainPlayer.animation{7};
-            previousMotion = 7;
         elseif previousMotion == 7
             player4display(row_start:row_start + playerRows - 1, col_start:col_start + playerColumns - 1) = mainPlayer.animation{8};
-            previousMotion = 8;
         else
             player4display(row_start:row_start + playerRows - 1, col_start:col_start + playerColumns - 1) = mainPlayer.animation{5};
-            previousMotion = 5;
         end
 
-    elseif  mainPlayer.normalized_vector(1) == 1 % right
+    elseif  mainPlayer.normalized_vector == [1,0] % right
         if previousMotion == 13
             player4display(row_start:row_start + playerRows - 1, col_start:col_start + playerColumns - 1) = mainPlayer.animation{14};
-            previousMotion = 14;
         elseif previousMotion == 14
             player4display(row_start:row_start + playerRows - 1, col_start:col_start + playerColumns - 1) = mainPlayer.animation{15};
-            previousMotion = 15;
         elseif previousMotion == 15
             player4display(row_start:row_start + playerRows - 1, col_start:col_start + playerColumns - 1) = mainPlayer.animation{16};
-            previousMotion = 16;
         else
             player4display(row_start:row_start + playerRows - 1, col_start:col_start + playerColumns - 1) = mainPlayer.animation{13};
-            previousMotion = 13;
         end
     end
     %disp([currentRow, currentCol])
@@ -146,7 +134,7 @@ while ~obj.currentKeys.escape
     fprintf("Player position: %i,%i\n",mainPlayer.x,mainPlayer.y)
     %disp([mainPlayer(1).x,mainPlayer(1).y])
     enemy(1,1).findPlayer(mainPlayer(1).y + 50, mainPlayer(1).x + 50);
-    fullbg(enemy(1,1).x:enemy(1,1).x + playerRows - 1, enemy(1,1).y:enemy(1).y  + playerColumns -1 ) = enemy(1,1).matrix;
+    fullbg(enemy(1,1).x:enemy(1,1).x + playerRows - 1, enemy(1,1).y:enemy(1).y  + playerColumns -1 ) = enemy(1).matrix;
 
     % Draw the scene
     drawScene(obj,gamebg,player4display);

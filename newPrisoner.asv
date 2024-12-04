@@ -95,7 +95,7 @@ classdef newPrisoner < handle
                 obj.previousMotion = 5;
             end
     
-        elseif  obj.normalized_vector(2) == 1 % right
+        elseif  obj.normalized_vector == [0,1] % right
             if obj.previousMotion == 13
                 obj.matrix = obj.animation{14};
                 obj.previousMotion = 14;
