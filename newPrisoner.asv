@@ -24,7 +24,7 @@ classdef newPrisoner < handle
         end
         
         %Moves prisoner to the player
-        function findPlayer(obj, playerX, playerY, board)
+        function findPlayer(obj, playerX, playerY, barrierBoard)
             
             % Calculates direction to move
             direction = [(playerX - obj.x), (playerY - obj.y)];
@@ -36,9 +36,17 @@ classdef newPrisoner < handle
             % Assigns position to temp variable
             newX = obj.x + normalized_vector(1);
             newY = obj.y + normalized_vector(2);
+            
 
-            if(board(newnewX) == )
+            if(barrierBoard(newX:16,newY:16) == zeros(16,1))
+                obj.x = obj.x + normalized_vector(1);
+                obj.y = obj.y + normalized_vector(2);
+                disp([obj.y, obj.x])
+            else
+                disp("gay")
 
+            end
+           
 
         end
             

@@ -19,12 +19,12 @@ classdef newPrisoner < handle
                 end
             end
             obj.x = randi([50,300]);
-            disp(obj.x)
+            obj.y = randi([50,300]);
            
         end
         
         %Moves prisoner to the player
-        function findPlayer(obj, playerX, playerY)
+        function findPlayer(obj, playerX, playerY, barrierBoard)
             
             % Calculates direction to move
             direction = [(playerX - obj.x), (playerY - obj.y)];
@@ -34,11 +34,22 @@ classdef newPrisoner < handle
 
 
             % Assigns position to temp variable
-            obj.x = obj.x + normalized_vector(1);
-            obj.y = obj.y + normalized_vector(2);
+            newX = obj.x + normalized_vector(1);
+            newY = obj.y + normalized_vector(2);
+            
 
+
+        
+            if all(barrierBoard(newX:newX + 16,newY: newY + 16) == 0, 'all')
+                obj.x = obj.x + normalized_vector(1);
+                obj.y = obj.y + normalized_vector(2);
+                %disp([obj.y, obj.x])
+       
+            else
+                disp("Overlay")
+
+            end
            
-
 
         end
             

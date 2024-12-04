@@ -9,6 +9,9 @@ classdef newPlayer < handle
         speedMultiplier = 2
         matrix = zeros(16,16)
 
+        
+
+
     end
 
     methods
@@ -38,6 +41,11 @@ classdef newPlayer < handle
                   %Assigns position to temp variable
             obj.x = obj.x + normalized_vector(1) * obj.speedMultiplier;
             obj.y = obj.y + normalized_vector(2) * obj.speedMultiplier;
+        end
+
+        function addx(input)
+            obj.x = obj.x + input;
+
         end
     end
 end
