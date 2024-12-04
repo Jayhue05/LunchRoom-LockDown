@@ -10,7 +10,6 @@ bl = ones(sideLength);
 tl = ones(sideLength);
 scene = Engine("retro_cards.png", 16,16);
 %scene = Engine("retro_cards.png", 16,16);
-
 drawScene(scene, bl, tl);
 
 tl = spawnTable(tl, 50, 50);

@@ -6,8 +6,11 @@ classdef newPlayer < handle
         name = "James"
         x = 50
         y = 50
-        speedMultiplier = 1
+        speedMultiplier = 2
         matrix = zeros(16,16)
+
+        
+
 
     end
 
@@ -24,7 +27,7 @@ classdef newPlayer < handle
         function CursorMovement(obj, targetX, targetY)
 
             % Calculates direction to move
-            direction = [(targetX - 500), (targetY - 500)];
+            direction = [(targetX - 570), (targetY - 390)];
             magnitude = sqrt( (direction(1))^2 + direction(2)^2 );
             normalized_vector = round([(direction(1) / magnitude), (direction(2) / magnitude)]);
             %disp([normalized_vector(1), normalized_vector(2)]);
