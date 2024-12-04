@@ -19,7 +19,7 @@ classdef newPrisoner < handle
                 end
             end
             obj.x = randi([50,300]);
-            disp(obj.x)
+            obj.y = randi([50,300]);
            
         end
         
@@ -38,15 +38,37 @@ classdef newPrisoner < handle
             newY = obj.y + normalized_vector(2);
             
 
-            if(barrierBoard(newX:16,newY:16) == zeros(16,1))
+            % Prevents #/0 from occuring
+            if floor(normalized_vector(1)) ~= normalized_vector(1)
+                return
+            end
+        
+            if all(barrierBoard(newX:newX + 16,newY: newY + 16) == 0, 'all')
                 obj.x = obj.x + normalized_vector(1);
                 obj.y = obj.y + normalized_vector(2);
-                disp([obj.y, obj.x])
-            else
-                disp("gay")
+                %disp([obj.y, obj.x])
+            elseif obj
+                disp("Overlay")
 
             end
            
+
+
+            dirNum = [-1,1];
+            randNum = dirNum(randi([1,2]));
+            
+
+            % checks if position is already taken
+            if board(newPosY, newPosX) == 1
+                obj.x = newPosX;
+                obj.y = newPosY;
+            elseif (magnitude > 6) && board(obj.y, obj.x + randNum) == 1
+                obj.x = obj.x + randNum;
+                obj.y = obj.y;
+            elseif(magnitude > 6) && board(obj.y + randNum, obj.x) == 1
+                obj.x = obj.x;
+                obj.y = obj.y + randNum;
+            end
 
         end
             

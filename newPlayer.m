@@ -27,7 +27,7 @@ classdef newPlayer < handle
         function CursorMovement(obj, targetX, targetY)
 
             % Calculates direction to move
-            direction = [(targetX - 500), (targetY - 500)];
+            direction = [(targetX - 570), (targetY - 390)];
             magnitude = sqrt( (direction(1))^2 + direction(2)^2 );
             normalized_vector = round([(direction(1) / magnitude), (direction(2) / magnitude)]);
             %disp([normalized_vector(1), normalized_vector(2)]);
@@ -41,11 +41,6 @@ classdef newPlayer < handle
                   %Assigns position to temp variable
             obj.x = obj.x + normalized_vector(1) * obj.speedMultiplier;
             obj.y = obj.y + normalized_vector(2) * obj.speedMultiplier;
-        end
-
-        function addx(input)
-            obj.x = obj.x + input;
-
         end
     end
 end

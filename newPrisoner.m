@@ -38,14 +38,21 @@ classdef newPrisoner < handle
             newY = obj.y + normalized_vector(2);
             
 
-
+            % Prevents #/0 from occuring
+            if floor(normalized_vector(1)) ~= normalized_vector(1)
+                return
+            end
         
+
+
+            dirNum = [-1,1];
+            randNum = dirNum(randi([1,2]));
+            
             if all(barrierBoard(newX:newX + 16,newY: newY + 16) == 0, 'all')
                 obj.x = obj.x + normalized_vector(1);
                 obj.y = obj.y + normalized_vector(2);
                 %disp([obj.y, obj.x])
-       
-            else
+            elseif all(barrierBoard(obj.x + randNum:obj.x + randNum + 16,obj.y: obj.y + 16) == 0, 'all')
                 disp("Overlay")
 
             end

@@ -53,7 +53,7 @@ axis off; % Hides axes and removes margins
 set(gca, 'Position', [0 0 1 1]);
 
 % Prisoner Info
-prisonerToSpawn = 10;
+prisonerToSpawn = 100;
 enemy = [];
 
 % Create Prisoners
@@ -67,7 +67,6 @@ player4display(row_start:row_start + playerRows - 1, col_start:col_start + playe
     
 % Main loop
 while ~obj.currentKeys.escape
-    %barrierMatrix(:) = 0;
     
     % Start polling mouse positions 
     playerTarget = MotionFcn(FigureH);
@@ -87,7 +86,7 @@ while ~obj.currentKeys.escape
         barrierMatrix(enemy(1,i).x:enemy(1,i).x + playerRows - 1, enemy(1,i).y:enemy(1,i).y  + playerColumns -1 ) = zeros(16,16);
         enemy(1,i).findPlayer(mainPlayer(1).y + 50, mainPlayer(1).x + 50, barrierMatrix);
         fullbg(enemy(1,i).x:enemy(1,i).x + playerRows - 1, enemy(1,i).y:enemy(1,i).y  + playerColumns -1 ) = enemy(1).matrix;
-        barrierMatrix(enemy(1,i).x:enemy(1,i).x + playerRows - 1, enemy(1,i).y:enemy(1,i).y  + playerColumns -1 ) = ones(16,16);
+        barrierMatrix(enemy(1,i).x + 5:enemy(1,i).x + + 9 - 1, enemy(1,i).y + 5 :enemy(1,i).y + 9 - 1 ) = ones(4,4);
     end
     % Draw the scene
     drawScene(obj,gamebg,player4display);
