@@ -32,6 +32,7 @@ mainPlayer = newPlayer;
 mainPlayer.createPlayer(fullbg, totalColumns);
 
 
+
 % Creates a blank matrix of board size
 player4display = 10693 * ones(gamebgSize(1), gamebgSize(2)); %2x2 blank is 10693
 
@@ -40,10 +41,10 @@ row_start = gamebgSize(1) / 2;
 col_start = gamebgSize(2) / 2;
 mainPlayer.x = col_start;
 mainPlayer.y = row_start;
-disp(mainPlayer.x);
+
 
 % Grabs scene and starts polling mouse cord
-drawScene(obj,gamebg,player4display)
+drawScene(obj,gamebg,player4display);
 FigureH = gcf;
 set(FigureH, 'WindowButtonMotionFcn', @MotionFcn);
 
@@ -52,7 +53,7 @@ axis off; % Hides axes and removes margins
 set(gca, 'Position', [0 0 1 1]);
 
 % Prisoner Info
-prisonerToSpawn = 10;
+prisonerToSpawn = 100;
 enemy = [];
 
 % Create Prisoners
@@ -62,35 +63,16 @@ for i = 1:prisonerToSpawn
 end
 
 
-
-
-eric = newPlayer;
-jayhue = newPlayer;
-
-eric.x = 5;
-
-jayhue.x = 5;
-
-
-
-
-
-
-
-
-
 player4display(row_start:row_start + playerRows - 1, col_start:col_start + playerColumns - 1) = mainPlayer.matrix;
     
 % Main loop
 while ~obj.currentKeys.escape
-    barrierMatrix(:) = 0;
     
     % Start polling mouse positions 
     playerTarget = MotionFcn(FigureH);
     cursorTargetX = round(playerTarget(1));
     cursorTargetY = round(abs((playerTarget(2) - 810))); % Flips axis to start at top left
     
-
     mainPlayer.CursorMovement(cursorTargetX,cursorTargetY);
    
     currentRow = mainPlayer.y;
@@ -98,12 +80,14 @@ while ~obj.currentKeys.escape
     % Update Game Board display matrix
     gamebg = fullbg(currentRow:currentRow+gamebgSize(1)-1, currentCol:currentCol+gamebgSize(2)-1);
 
-    % Spawn Enemy
-    for i = 1:5
-        enemy(1,i).findPlayer(mainPlayer(1).y + 50, mainPlayer(1).x + 50);
+    % Update Enemy
+    for i = 1:prisonerToSpawn
+        barrierMatrix(enemy(1,i).x:enemy(1,i).x + playerRows - 1, enemy(1,i).y:enemy(1,i).y  + playerColumns -1 ) = zeros(16,16);
+        enemy(1,i).findPlayer(mainPlayer(1).y + 50, mainPlayer(1).x + 50, barrierMatrix);
         fullbg(enemy(1,i).x:enemy(1,i).x + playerRows - 1, enemy(1,i).y:enemy(1,i).y  + playerColumns -1 ) = enemy(1).matrix;
-        barrierMatrix(enemy(1,i).x:enemy(1,i).x + playerRows - 1, enemy(1,i).y:enemy(1,i).y  + playerColumns -1 ) = 3;
+        barrierMatrix(enemy(1,i).x + 5:enemy(1,i).x + + 9 - 1, enemy(1,i).y + 5 :enemy(1,i).y + 9 - 1 ) = ones(4,4);
     end
+
     % Draw the scene
     drawScene(obj,gamebg,player4display);
     pause(0.01); % Small pause to prevent high CPU usage

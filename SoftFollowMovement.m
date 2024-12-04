@@ -53,7 +53,7 @@ axis off; % Hides axes and removes margins
 set(gca, 'Position', [0 0 1 1]);
 
 % Prisoner Info
-prisonerToSpawn = 100;
+prisonerToSpawn = 10;
 enemy = [];
 
 % Create Prisoners
@@ -73,11 +73,11 @@ while ~obj.currentKeys.escape
     cursorTargetX = round(playerTarget(1));
     cursorTargetY = round(abs((playerTarget(2) - 810))); % Flips axis to start at top left
     
-
     mainPlayer.CursorMovement(cursorTargetX,cursorTargetY);
    
     currentRow = mainPlayer.y;
     currentCol = mainPlayer.x;
+    
     % Update Game Board display matrix
     gamebg = fullbg(currentRow:currentRow+gamebgSize(1)-1, currentCol:currentCol+gamebgSize(2)-1);
 
@@ -85,9 +85,10 @@ while ~obj.currentKeys.escape
     for i = 1:prisonerToSpawn
         barrierMatrix(enemy(1,i).x:enemy(1,i).x + playerRows - 1, enemy(1,i).y:enemy(1,i).y  + playerColumns -1 ) = zeros(16,16);
         enemy(1,i).findPlayer(mainPlayer(1).y + 50, mainPlayer(1).x + 50, barrierMatrix);
-        fullbg(enemy(1,i).x:enemy(1,i).x + playerRows - 1, enemy(1,i).y:enemy(1,i).y  + playerColumns -1 ) = enemy(1).matrix;
+        fullbg(enemy(1,i).x:enemy(1,i).x + playerRows - 1, enemy(1,i).y:enemy(1,i).y  + playerColumns -1 ) = enemy(1,1).matrix;
         barrierMatrix(enemy(1,i).x + 5:enemy(1,i).x + + 9 - 1, enemy(1,i).y + 5 :enemy(1,i).y + 9 - 1 ) = ones(4,4);
     end
+
     % Draw the scene
     drawScene(obj,gamebg,player4display);
     pause(0.01); % Small pause to prevent high CPU usage

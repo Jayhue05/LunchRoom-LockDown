@@ -9,6 +9,7 @@ classdef newPrisoner < handle
         y = 50;
         rowSpawn = [1,2,99,100]
         matrix = zeros(16,16)
+        
     end
 
     methods
@@ -52,9 +53,9 @@ classdef newPrisoner < handle
                 obj.x = obj.x + normalized_vector(1);
                 obj.y = obj.y + normalized_vector(2);
                 %disp([obj.y, obj.x])
-            elseif all(barrierBoard(obj.x + randNum:obj.x + randNum + 16,obj.y: obj.y + 16) == 0, 'all')
-                disp("Overlay")
-
+            elseif all(barrierBoard(obj.x + randNum:obj.x + randNum + 16,obj.y + randNum: obj.y + randNum + 16) == 0, 'all')
+                obj.x = obj.x + randNum;
+                obj.y = obj.y + randNum;
             end
            
 
